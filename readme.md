@@ -177,8 +177,6 @@ sequenceDiagram
 
 - [Systems Architecture](./README.md) - Four-plane architecture overview
 - [Evals Harness](./EVALS_HARNESS.md) - Behavioral regression testing
-- [Tool Policy](./TOOL_POLICY.md) - Security and validation rules
-- [Memory & RAG](./MEMORY_RAG.md) - Embeddings and retrieval system
 
 ---
 

@@ -1,0 +1,76 @@
+## Systems Architecture (by Planes)
+
+```mermaid
+flowchart LR
+  %% =========================
+  %% Systems Architecture View
+  %% Grouped into Planes
+  %% =========================
+
+  %% ---- Control Plane ----
+  subgraph CP[Control Plane (API + Orchestration)]
+    CP1[NestJS API Gateway\n(Auth/JWT, REST)]
+    CP2[Thread & Agent Services\n(thread state, agent spec, policy)]
+    CP3[Model Router\n(task class + risk + latency)\n→ model + budget]
+    CP4[Responses API Client\n(text + tools + JSON + streaming)]
+    CP5[Tool Policy Engine\n(allowlist, scopes, escalation)]
+  end
+
+  %% ---- Data Plane ----
+  subgraph DP[Data Plane (State + Retrieval)]
+    DP1[MongoDB\nThreads, Users, Receipts]
+    DP2[Vector Index (Mongo)\nEmbeddings: text-embedding-3-small]
+    DP3[Artifacts Store\n(agent specs, suggestion blocks)]
+  end
+
+  %% ---- Event Plane ----
+  subgraph EP[Event Plane (Streaming + Jobs + Observability)]
+    EP1[WebSocket / Socket.IO\nToken + Tool Lifecycle Events]
+    EP2[Redis + BullMQ\nIndexing, async tool jobs]
+    EP3[Metrics/Tracing\nTTFT, tool latency, schema pass rate]
+  end
+
+  %% ---- Session Plane ----
+  subgraph SP[Session Plane (Realtime Sessions)]
+    SP1[LiveKit Session Runtime\nVoice worker]
+    SP2[OpenAI RealtimeModel\nInterruptible voice]
+    SP3[Avatar Session (Hedra)\nOptional visual presence]
+    SP4[MCP Tools (Firecrawl)\nWeb search/scrape via MCP server]
+  end
+
+  %% ---- UI ----
+  UI[Client UI\n(Chat + Agent State)]
+
+  %% ======= Flows =======
+  UI -->|messages| CP1
+  CP1 --> CP2
+  CP2 -->|load thread state| DP1
+  CP2 --> CP3 --> CP4
+
+  %% Tool execution gating
+  CP4 -->|tool call proposals| CP5
+  CP5 -->|exec approved tools| EP2
+  EP2 -->|tool results| CP4
+
+  %% Retrieval
+  CP2 -->|retrieve| DP2 -->|scoped snippets| CP4
+
+  %% Artifacts / receipts
+  CP4 -->|write receipts + artifacts| DP1
+  CP4 -->|write structured blocks| DP3
+
+  %% Streaming back to UI
+  CP4 -->|stream tokens/JSON| EP1 --> UI
+  EP2 -->|tool lifecycle| EP1
+
+  %% Realtime voice sessions
+  UI -.->|voice start| SP1
+  SP1 --> SP2 --> CP4
+  SP1 -.-> SP3
+  SP1 -->|web tools| SP4
+  SP1 -->|events| EP1
+
+  %% Observability
+  CP4 --> EP3
+  EP2 --> EP3
+  EP1 --> EP3

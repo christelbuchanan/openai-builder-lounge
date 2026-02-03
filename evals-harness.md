@@ -6,12 +6,10 @@
 
 ## 🎯 Philosophy: Test Agent Behavior Like Software (Not Vibes)
 
-*"This is the part that makes builders nod because it's the difference between shipping and praying."*
-
 **Models change. Prompts change. Tools change.**  
 Without evals + replay, behavior drifts silently.
 
-LLM systems need more than standard API testing—they require **behavioral regression testing**. We don't expect identical text outputs, but we do expect:
+LLM systems need more than standard API testing, they require **behavioral regression testing**. We don't expect identical text outputs, but we do expect:
 - The right tools to be called
 - JSON to validate against schemas
 - Forbidden tools to never run

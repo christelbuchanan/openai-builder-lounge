@@ -175,8 +175,9 @@ sequenceDiagram
 
 ## 📚 Related Documentation
 
-- [Systems Architecture](./README.md) - Four-plane architecture overview
-- [Evals Harness](./EVALS_HARNESS.md) - Behavioral regression testing
+- [Systems Architecture](./system-architecture.md) - Four-plane architecture overview
+- [Architecture by Planes](./architecture-by-planes.md) - Enterprise plane view
+- [Evals Harness](./evals-harness.md) - Behavioral regression testing
 
 ---
 

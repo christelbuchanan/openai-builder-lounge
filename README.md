@@ -516,36 +516,9 @@ flowchart LR
         └────────────────┘         └────────────────┘
 ```
 
----
-
-## 📈 Future Roadmap
-
-### Q1 2025
-- [ ] Multi-region deployment
-- [ ] Advanced caching strategies
-- [ ] Enhanced metrics and tracing
-- [ ] Performance optimization
-
-### Q2 2025
-- [ ] Additional voice models
-- [ ] Video avatar support
-- [ ] Custom tool marketplace
-- [ ] Enterprise SSO integration
-
-### Q3 2025
-- [ ] On-premise deployment option
-- [ ] Advanced RAG techniques
-- [ ] Multi-agent orchestration
-- [ ] Compliance certifications
-
----
 
 <div align="center">
 
 **Built with ❤️ by the ChatAndBuild Team**
-
-*Enterprise-grade AI infrastructure for production applications*
-
-[Documentation](https://docs.chatandbuild.com) • [API Reference](https://api.chatandbuild.com) • [Status](https://status.chatandbuild.com)
 
 </div>
